@@ -6,7 +6,6 @@ from search_engine_parser import GoogleSearch
 from youtube_search import YoutubeSearch
 
 from pyrogram import Client as app, filters
-from helpers.lelerror import capture_err
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -18,7 +17,6 @@ import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 @app.on_message(pyrogram.filters.command(["yts"]))
-@capture_err
 async def ytsearch(_, message: Message):
     try:
         if len(message.command) < 2:
