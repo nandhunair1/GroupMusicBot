@@ -57,6 +57,28 @@ async def play(_, message: Message):
         print(str(e))
         return
 
+    keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="Watch On YouTube 🎬",
+                        url=f"{url}")
+                   
+                ]
+            ]
+        )
+
+    keyboard2 = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="Watch On YouTube 🎬",
+                        url=f"{url}")
+                   
+                ]
+            ]
+        )
+
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
 
     if audio:
@@ -69,11 +91,13 @@ async def play(_, message: Message):
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(message.chat.id, file=file_path)
-        await lel.edit(f"#⃣ **Queued** at position {position}!")
+        await lel.edit(f"#⃣ **Queued** at position {position}!",
+        reply_markup=keyboard2)
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
         photo="https://telegra.ph/file/dcdd08189574239cb15eb.jpg",
+        reply_markup=keyboard,
         caption="▶️ **Playing** here the song requested by {} 😜".format(
         message.from_user.mention()
         ),
