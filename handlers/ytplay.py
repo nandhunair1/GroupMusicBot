@@ -91,14 +91,17 @@ async def play(_, message: Message):
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(message.chat.id, file=file_path)
-        await lel.edit(f"#⃣ **Queued** at position {position}!",
+        await message.reply_photo(
+        photo=thumb_name, 
+        caption=f"#⃣ Your requested song **queued** at position {position}!",
         reply_markup=keyboard2)
+        return await lel.delete()
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
-        photo="https://telegra.ph/file/dcdd08189574239cb15eb.jpg",
+        photo=thumb_name,
         reply_markup=keyboard,
-        caption="▶️ **Playing** here the song requested by {} 😜".format(
+        caption="▶️ **Playing** here the song requested by {} via YouTube Music 😜".format(
         message.from_user.mention()
         ),
     )
