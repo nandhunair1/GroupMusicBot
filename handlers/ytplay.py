@@ -57,6 +57,28 @@ async def play(_, message: Message):
         print(str(e))
         return
 
+    keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="Watch On YouTube 🎬",
+                        url=f"{url}")
+                   
+                ]
+            ]
+        )
+
+    keyboard2 = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="Watch On YouTube 🎬",
+                        url=f"{url}")
+                   
+                ]
+            ]
+        )
+
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
 
     if audio:
